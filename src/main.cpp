@@ -4,9 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <filesystem>
 #include <ctime>
-#include <algorithm>
 
 std::string readFile(const std::string& path) {
     std::ifstream file(path);
@@ -42,13 +40,10 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     </head>
     <body>
-        <header>
-            <a href="/"><img src="lambda.png" alt="λ" width="14" /></a>
-        </header>
-        <hr />
         <nav class="main-nav">
-            <a href="/" class="nav-link active">Home</a>
-            <a href="/gallery" class="nav-link">Gallery</a>
+            <a href="/" class="nav-link active">home</a>
+            <a href="/gallery" class="nav-link">gallery</a>
+            <img class="logo" src="lambda.png" alt="λ" width="40" />
         </nav>
         <main class="blog-container">
             <div class="blog-posts">
@@ -99,7 +94,7 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
 
     html += "</div>\n";
     html += "                <div class=\"pagination-right\">\n";
-    html += "                    <label for=\"posts-per-page\">Posts per page:</label>\n";
+    html += "                    <label for=\"posts-per-page\">posts:</label>\n";
     html += "                    <select id=\"posts-per-page\" onchange=\"changePostsPerPage(this.value)\">\n";
 
     // Add options with proper selected state

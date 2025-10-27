@@ -219,7 +219,8 @@ th {
 .blog-post {
     background: var(--green-bg);
     border: 1px solid;
-    border-color: var(--border-bright) var(--border-dark) var(--border-dark) var(--border-bright);
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
     padding: 24px;
     transition: all 0.2s ease-in-out;
 }
@@ -314,13 +315,19 @@ th {
 .main-nav {
     background: var(--green-bg);
     border: 1px solid var(--border-dark);
-    border-color: var(--border-dark) var(--border-bright) var(--border-bright) var(--border-dark);
-    padding: 12px 0;
+    border-color: var(--border-dark) var(--border-bright) var(--border-bright)
+        var(--border-dark);
+    padding: 5px 0 5px 20px;
     margin: 0 auto;
     max-width: 800px;
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin-left: auto;
+    padding-right: 20px;
 }
 
 .nav-link {
@@ -335,13 +342,15 @@ th {
 .nav-link:hover {
     color: white;
     background: var(--light-green-bg);
-    border-color: var(--border-bright) var(--border-dark) var(--border-dark) var(--border-bright);
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
 }
 
 .nav-link.active {
     color: var(--maize);
     background: var(--maize-bg);
-    border-color: var(--border-bright) var(--border-dark) var(--border-dark) var(--border-bright);
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
 }
 
 /* Gallery Layout ------------------------------------------- */
@@ -356,7 +365,8 @@ th {
 .gallery-item {
     background: var(--green-bg);
     border: 1px solid;
-    border-color: var(--border-bright) var(--border-dark) var(--border-dark) var(--border-bright);
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
     padding: 16px;
     transition: all 0.2s ease-in-out;
     text-align: center;
@@ -401,7 +411,8 @@ th {
     color: var(--off-white);
     text-decoration: none;
     border: 1px solid var(--border-dark);
-    border-color: var(--border-dark) var(--border-bright) var(--border-bright) var(--border-dark);
+    border-color: var(--border-dark) var(--border-bright) var(--border-bright)
+        var(--border-dark);
     transition: all 0.2s ease-in-out;
 }
 
@@ -413,7 +424,8 @@ th {
 .page-number.current {
     background: var(--maize-bg);
     color: white;
-    border-color: var(--border-bright) var(--border-dark) var(--border-dark) var(--border-bright);
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
 }
 
 .pagination-right {
@@ -448,25 +460,25 @@ th {
         padding: 16px;
         max-width: 100%;
     }
-    
+
     .main-nav {
         max-width: 100%;
         gap: 20px;
     }
-    
+
     .nav-link {
         padding: 6px 12px;
         font-size: 14px;
     }
-    
+
     .post-title {
         font-size: 20px;
     }
-    
+
     .post-content {
         font-size: 15px;
     }
-    
+
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -479,23 +491,23 @@ th {
         gap: 8px;
         padding: 8px;
     }
-    
+
     .nav-link {
         text-align: center;
     }
-    
+
     .post-meta {
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
     }
-    
+
     .pagination-controls {
         flex-direction: column;
         gap: 16px;
         text-align: center;
     }
-    
+
     .pagination-left {
         justify-content: center;
     }

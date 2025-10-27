@@ -6,15 +6,15 @@
 std::vector<std::string> getAssetImages() {
     std::vector<std::string> images;
     std::string assetPath = "asset/";
-    
+
     try {
         for (const auto& entry : std::filesystem::directory_iterator(assetPath)) {
             if (entry.is_regular_file()) {
                 std::string filename = entry.path().filename().string();
                 std::string extension = entry.path().extension().string();
-                
+
                 // Check for common image extensions
-                if (extension == ".png" || extension == ".jpg" || extension == ".jpeg" || 
+                if (extension == ".png" || extension == ".jpg" || extension == ".jpeg" ||
                     extension == ".gif" || extension == ".bmp" || extension == ".webp") {
                     images.push_back(filename);
                 }
@@ -23,7 +23,7 @@ std::vector<std::string> getAssetImages() {
     } catch (const std::filesystem::filesystem_error& e) {
         // If asset directory doesn't exist or can't be read, return empty vector
     }
-    
+
     return images;
 }
 
@@ -36,18 +36,15 @@ std::string generateGalleryHTML() {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>iliya's world - Gallery</title>
+        <title>iliya's world - gallery</title>
         <link rel="stylesheet" href="./style.css" />
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     </head>
     <body>
-        <header>
-            <a href="/"><img src="lambda.png" alt="λ" width="14" /></a>
-        </header>
-        <hr />
         <nav class="main-nav">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/gallery" class="nav-link active">Gallery</a>
+            <a href="/" class="nav-link">home</a>
+            <a href="/gallery" class="nav-link active">gallery</a>
+            <img class="logo" src="lambda.png" alt="λ" width="40" />
         </nav>
         <main class="gallery-container">
             <div class="gallery-grid">)";
