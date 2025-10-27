@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include "html_shared.h"
 
 // Function to scan asset directory for images
 std::vector<std::string> getAssetImages() {
@@ -29,43 +30,21 @@ std::vector<std::string> getAssetImages() {
 
 // Function to generate gallery HTML
 std::string generateGalleryHTML() {
-    std::string html = R"(
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>iliya's world - gallery</title>
-        <link rel="stylesheet" href="./style.css" />
-        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-        <nav class="main-nav">
-            <a href="/" class="nav-link">home</a>
-            <a href="/gallery" class="nav-link active">gallery</a>
-            <img class="logo" src="lambda.png" alt="λ" width="40" />
-        </nav>
+    std::string content = R"(
         <main class="gallery-container">
             <div class="gallery-grid">)";
 
     // Dynamically scan asset directory for images
     std::vector<std::string> assetImages = getAssetImages();
     for (const auto& image : assetImages) {
-        html += R"(<div class="gallery-item">
+        content += R"(<div class="gallery-item">
                     <img src="asset/)" + image + R"(" alt=")" + image + R"(" />
                 </div>)";
     }
 
-    html += R"(
+    content += R"(
             </div>
-        </main>
-        <footer>
-            <p>copyleft 🄯 iliya lesani</p>
-        </footer>
-        <script src="index.js"></script>
-    </body>
-</html>
-)";
-    return html;
+        </main>)";
+    
+    return generatePageWrapper("iliya's world - gallery", "gallery", content);
 }

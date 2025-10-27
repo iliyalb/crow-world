@@ -18,7 +18,7 @@ std::vector<BlogPost> blogPosts = {
         "2025-10-25",
         "icon.png",    // (icon directory)
         "image.png",   // (asset directory, empty string if none)
-        "file.bsp"     // (file directory, empty string if none)
+        "file.bsp"     // (url or file directory, empty string if none)
     },*/
     {
         "the door was always open",
@@ -26,7 +26,7 @@ std::vector<BlogPost> blogPosts = {
         "2025-10-27",
         "source.png",
         "broken.door.png",
-        ""
+        "https://raw.githubusercontent.com/H2xDev/GodotVMF/refs/heads/master/.gitattributes"
     }
 };
 

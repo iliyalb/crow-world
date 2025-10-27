@@ -1,6 +1,7 @@
 #include "crow.h"
 #include "post.h"
 #include "gallery.h"
+#include "html_shared.h"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -28,23 +29,7 @@ std::string getCurrentTime() {
 }
 
 std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
-    std::string html = R"(
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>iliya's world</title>
-        <link rel="stylesheet" href="./style.css" />
-        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-        <nav class="main-nav">
-            <a href="/" class="nav-link active">home</a>
-            <a href="/gallery" class="nav-link">gallery</a>
-            <img class="logo" src="lambda.png" alt="λ" width="40" />
-        </nav>
+    std::string content = R"(
         <main class="blog-container">
             <div class="blog-posts">
 )";
@@ -52,17 +37,25 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
     // Get posts for current page
     std::vector<BlogPost> pagePosts = getPostsForPage(page, postsPerPage);
     for (const auto& post : pagePosts) {
-        html += R"(<article class="blog-post">
+        content += R"(<article class="blog-post">
                     <div class="post-meta">
                         <span class="post-date">)" + post.date + R"(</span>
                         <div class="post-actions">)";
 
         // Add download button if file exists
         if (!post.download.empty()) {
-            html += R"(<a href="file/)" + post.download + R"(" class="download-btn" title="Download )" + post.download + R"(">DOWNLOAD</a>)";
+            std::string downloadUrl;
+            if (isUrl(post.download)) {
+                // It's a URL, use it directly
+                downloadUrl = post.download;
+            } else {
+                // It's a file, prepend file/ path
+                downloadUrl = "file/" + post.download;
+            }
+            content += R"(<a href=")" + downloadUrl + R"(" class="download-btn" title="Download )" + post.download + R"(">DOWNLOAD</a>)";
         }
 
-        html += R"(<span class="post-icon"><img src="icon/)" + post.icon + R"(" alt="icon" width="16" height="16" /></span>
+        content += R"(<span class="post-icon"><img src="icon/)" + post.icon + R"(" alt="icon" width="16" height="16" /></span>
                         </div>
                     </div>
                     <h2 class="post-title">)" + post.title + R"(</h2>
@@ -70,15 +63,15 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
 
         // Add optional image if it exists
         if (!post.image.empty()) {
-            html += R"(<div class="post-image"><img src="asset/)" + post.image + R"(" alt="post image" /></div>)";
+            content += R"(<div class="post-image"><img src="asset/)" + post.image + R"(" alt="post image" /></div>)";
         }
 
-        html += R"(</article>)";
+        content += R"(</article>)";
     }
 
     // Add pagination controls
     int totalPages = getTotalPages(postsPerPage);
-    html += R"(
+    content += R"(
             </div>
             <div class="pagination-controls">
                 <div class="pagination-left">)";
@@ -86,52 +79,47 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
     // Page numbers
     for (int i = 1; i <= totalPages; i++) {
         if (i == page) {
-            html += R"(<span class="page-number current">)" + std::to_string(i) + R"(</span>)";
+            content += R"(<span class="page-number current">)" + std::to_string(i) + R"(</span>)";
         } else {
-            html += R"(<a href="/?page=)" + std::to_string(i) + R"(&per_page=)" + std::to_string(postsPerPage) + R"(" class="page-number">)" + std::to_string(i) + R"(</a>)";
+            content += R"(<a href="/?page=)" + std::to_string(i) + R"(&per_page=)" + std::to_string(postsPerPage) + R"(" class="page-number">)" + std::to_string(i) + R"(</a>)";
         }
     }
 
-    html += "</div>\n";
-    html += "                <div class=\"pagination-right\">\n";
-    html += "                    <label for=\"posts-per-page\">posts:</label>\n";
-    html += "                    <select id=\"posts-per-page\" onchange=\"changePostsPerPage(this.value)\">\n";
+    content += "</div>\n";
+    content += "                <div class=\"pagination-right\">\n";
+    content += "                    <label for=\"posts-per-page\">posts:</label>\n";
+    content += "                    <select id=\"posts-per-page\" onchange=\"changePostsPerPage(this.value)\">\n";
 
     // Add options with proper selected state
     if (postsPerPage == 5) {
-        html += "                        <option value=\"5\" selected>5</option>\n";
+        content += "                        <option value=\"5\" selected>5</option>\n";
     } else {
-        html += "                        <option value=\"5\">5</option>\n";
+        content += "                        <option value=\"5\">5</option>\n";
     }
 
     if (postsPerPage == 10) {
-        html += "                        <option value=\"10\" selected>10</option>\n";
+        content += "                        <option value=\"10\" selected>10</option>\n";
     } else {
-        html += "                        <option value=\"10\">10</option>\n";
+        content += "                        <option value=\"10\">10</option>\n";
     }
 
     if (postsPerPage == 25) {
-        html += "                        <option value=\"25\" selected>25</option>\n";
+        content += "                        <option value=\"25\" selected>25</option>\n";
     } else {
-        html += "                        <option value=\"25\">25</option>\n";
+        content += "                        <option value=\"25\">25</option>\n";
     }
 
-    html += "                    </select>\n";
-    html += "                </div>\n";
-    html += "            </div>\n";
-    html += "        </main>\n";
-    html += "        <footer>\n";
-    html += "            <p>copyleft 🄯 iliya lesani</p>\n";
-    html += "        </footer>\n";
-    html += "        <script>\n";
-    html += "            function changePostsPerPage(value) {\n";
-    html += "                window.location.href = '/?page=1&per_page=' + value;\n";
-    html += "            }\n";
-    html += "        </script>\n";
-    html += "        <script src=\"index.js\"></script>\n";
-    html += "    </body>\n";
-    html += "</html>\n";
-    return html;
+    content += "                    </select>\n";
+    content += "                </div>\n";
+    content += "            </div>\n";
+    content += "        </main>\n";
+    content += "        <script>\n";
+    content += "            function changePostsPerPage(value) {\n";
+    content += "                window.location.href = '/?page=1&per_page=' + value;\n";
+    content += "            }\n";
+    content += "        </script>\n";
+    
+    return generatePageWrapper("iliya's world", "home", content);
 }
 
 int main() {
