@@ -1,0 +1,213 @@
+/* ==========================================================
+   Steam Classic Web Theme
+   Based on legacy Steam client styling
+   ========================================================== */
+
+:root {
+    --light-green-bg: #5a6a50;
+    --green-bg: #4c5844;
+    --dark-green-bg: #3e4637;
+    --border-bright: #808080;
+    --border-dark: #282e22;
+    --off-white: #d8ded3;
+    --maize: #c4b550;
+    --maize-bg: #91863c;
+    --label: #a0aa95;
+    --dim-text: #758666;
+    --disabled-text: #75806f;
+    --font-main: "Segoe UI", "Tahoma", sans-serif;
+}
+
+/* Base ----------------------------------------------------- */
+
+body {
+    background: var(--dark-green-bg);
+    color: var(--label);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--maize);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons -------------------------------------------------- */
+
+button,
+input[type="button"],
+input[type="submit"] {
+    background: var(--green-bg);
+    border: 1px solid;
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
+    color: white;
+    padding: 4px 10px;
+    font: inherit;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+button:hover {
+    background: var(--light-green-bg);
+}
+
+button:active {
+    border-color: var(--border-dark) var(--border-bright) var(--border-bright)
+        var(--border-dark);
+}
+
+button.primary {
+    background: var(--maize-bg);
+    color: white;
+}
+
+/* Inputs & Forms ------------------------------------------- */
+
+input[type="text"],
+textarea,
+select {
+    background: var(--dark-green-bg);
+    color: white;
+    border: 1px solid var(--light-green-bg);
+    padding: 6px 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--maize);
+}
+
+/* Navigation ----------------------------------------------- */
+
+nav {
+    background: var(--green-bg);
+    border: 1px solid var(--border-dark);
+    border-color: var(--border-dark) var(--border-bright) var(--border-bright)
+        var(--border-dark);
+    padding: 8px 16px;
+}
+
+nav a {
+    color: var(--off-white);
+    margin-right: 16px;
+}
+
+nav a:hover {
+    color: white;
+}
+
+/* Cards / Panels ------------------------------------------- */
+
+.card {
+    background: var(--green-bg);
+    border: 1px solid;
+    border-color: var(--border-bright) var(--border-dark) var(--border-dark)
+        var(--border-bright);
+    padding: 16px;
+    margin: 12px 0;
+    color: var(--label);
+}
+
+.card h2 {
+    color: var(--maize);
+    font-weight: 400;
+    margin-top: 0;
+}
+
+/* Modal / Window ------------------------------------------- */
+
+.modal {
+    background: var(--green-bg);
+    border: 1px solid var(--border-bright);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.modal-header {
+    color: var(--maize);
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+/* Tables --------------------------------------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--off-white);
+}
+
+th,
+td {
+    padding: 8px;
+    border: 1px solid var(--border-dark);
+}
+
+th {
+    background: var(--green-bg);
+    color: var(--maize);
+    text-align: left;
+}
+
+/* Tooltips ------------------------------------------------- */
+
+.tooltip {
+    display: inline-block;
+    position: relative;
+    cursor: help;
+    color: var(--maize);
+}
+
+.tooltip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    background: var(--dark-green-bg);
+    border: 1px solid var(--light-green-bg);
+    color: white;
+    padding: 6px 8px;
+    top: 120%;
+    left: 0;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 10;
+}
+
+/* Scrollbars ----------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: 12px;
+    background: var(--light-green-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green-bg);
+    border: 1px solid var(--border-bright);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--maize-bg);
+}
+
+/* Footer --------------------------------------------------- */
+
+footer {
+    background: var(--dark-green-bg);
+    border-top: 1px solid var(--border-dark);
+    color: var(--dim-text);
+    text-align: center;
+    padding: 16px;
+    font-size: 14px;
+}
