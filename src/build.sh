@@ -1,0 +1,1 @@
+g++ -std=c++17 -I. main.cpp post.cpp gallery.cpp -o crow.out -lpthread
