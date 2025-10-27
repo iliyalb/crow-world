@@ -12,6 +12,10 @@ std::string readFile(const std::string& path) {
     return buffer.str();
 }
 
+bool startsWith(const std::string& str, const std::string& prefix) {
+    return str.find(prefix) == 0;
+}
+
 int main() {
     crow::SimpleApp app;
 
@@ -19,8 +23,16 @@ int main() {
         return readFile("index.html");
     });
 
-    CROW_ROUTE(app, "/<string>")([](const std::string& filePath) {
-        return readFile(filePath);
+    CROW_ROUTE(app, "/<path>")([](const std::string& path) {
+        std::string fullPath;
+
+        if (startsWith(path, "asset/")) {
+            fullPath = path;
+        } else {
+            fullPath = path;  // Serve from root or asset
+        }
+
+        return readFile(fullPath);
     });
 
     app.port(18080).multithreaded().run();
