@@ -21,33 +21,34 @@ std::string generateHeader(const std::string& title, const std::string& activeNa
 std::string generateNavigation(const std::string& activeNav) {
     std::string html = R"(<nav class="main-nav">
                 <a href="/" class="nav-link)";
-    
+
     if (activeNav == "home") {
         html += " active";
     }
-    
+
     html += R"(">home</a>
                 <a href="/gallery" class="nav-link)";
-    
+
     if (activeNav == "gallery") {
         html += " active";
     }
-    
+
     html += R"(">gallery</a>
                 <img class="logo" src="lambda.png" alt="λ" width="40" />
             </nav>)";
-    
+
     return html;
 }
 
 std::string generateFooter() {
     return R"(
-        <footer>
-            <p>copyleft 🄯 iliya lesani</p>
-        </footer>
-        <script src="index.js"></script>
-    </body>
-</html>)";
+            <footer>
+                <p>copyleft 🄯 iliya lesani</p>
+            </footer>
+            <a href="#" class="back-to-top">⇡</a>
+            <script src="index.js"></script>
+        </body>
+    </html>)";
 }
 
 std::string generatePageWrapper(const std::string& title, const std::string& activeNav, const std::string& content) {

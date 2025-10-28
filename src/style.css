@@ -87,6 +87,12 @@ select:focus {
     outline: none;
     border-color: var(--maize);
 }
+button:focus,
+.download-btn:focus,
+.nav-link:focus {
+    outline: 2px solid var(--maize);
+    outline-offset: 2px;
+}
 
 /* Navigation ----------------------------------------------- */
 
@@ -308,6 +314,22 @@ th {
     height: auto;
     border: 1px solid var(--border-dark);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--maize);
+    color: var(--dark-green-bg);
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+}
+.back-to-top:hover {
+    background: var(--maize-bg);
+    transform: scale(1.05);
 }
 
 /* Main Navigation ------------------------------------------ */
