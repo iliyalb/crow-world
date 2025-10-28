@@ -1,7 +1,26 @@
 ## Description
-Website intended for personal use
+
+Website intended for personal non-commercial use, built in C++ with Crow microframework and Meson/Ninja build system.
+
+## Build
+
+First time setup:
+```sh
+mkdir -p build && meson setup build
+```
+
+Changes to `meson.build`:
+```sh
+meson setup --reconfigure build && ninja install -C build
+```
+
+Build and run:
+```sh
+ninja -C build && (cd ./build && ./crow-world.out)
+```
 
 ## Attributions
+
 This repository uses crow microframework.
 
     BSD 3-Clause License
@@ -38,6 +57,7 @@ This repository uses crow microframework.
     The Crow logo and other graphic material (excluding third party logos) used are under exclusive Copyright (c) 2021-2022, Farook Al-Sammarraie (The-EDev), All rights reserved.
 
 ## License
+
 This is free and unencumbered software released into the public domain under The Unlicense.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and by any means.
