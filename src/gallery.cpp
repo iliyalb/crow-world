@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include <filesystem>
-#include "html_shared.h"
+#include "html_shared.hpp"
 
 // Function to scan asset directory for images
 std::vector<std::string> getAssetImages() {
@@ -45,6 +45,6 @@ std::string generateGalleryHTML() {
     content += R"(
             </div>
         </main>)";
-    
+
     return generatePageWrapper("iliya's world - gallery", "gallery", content);
 }

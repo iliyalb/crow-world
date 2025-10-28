@@ -1,4 +1,4 @@
-#include "html_shared.h"
+#include "html_shared.hpp"
 #include <string>
 
 std::string generateHeader(const std::string& title, const std::string& activeNav) {

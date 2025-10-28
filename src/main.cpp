@@ -1,7 +1,7 @@
 #include "crow.h"
-#include "post.h"
-#include "gallery.h"
-#include "html_shared.h"
+#include "post.hpp"
+#include "gallery.hpp"
+#include "html_shared.hpp"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -118,7 +118,7 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
     content += "                window.location.href = '/?page=1&per_page=' + value;\n";
     content += "            }\n";
     content += "        </script>\n";
-    
+
     return generatePageWrapper("iliya's world", "home", content);
 }
 
