@@ -8,6 +8,13 @@ std::string generateHeader(const std::string& title, const std::string& activeNa
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="robots" content="index,follow" />
+        <meta name="language" content="English">
+        <meta name="description" content="iliya's schizoposting microblog on everything half-life">
+        <meta name="keywords" content="iliya lesani, gldsrc, source engine, personal site, modding">
+        <meta name="license" content="Unlicense">
+        <meta name="dc.rights" content="No Rights Reserved">
+        <link rel="license" href="https://unlicense.org/">
         <title>)" + title + R"(</title>
         <link rel="stylesheet" href="./style.css" />
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
@@ -43,7 +50,13 @@ std::string generateNavigation(const std::string& activeNav) {
 std::string generateFooter() {
     return R"(
             <footer>
-                <p>copyleft 🄯 iliya lesani</p>
+                <p>anti-copyright <s>©</s> iliya lesani</p>
+                <p>
+                    All rights released to the <b>public domain</b> via the
+                    <a href="https://unlicense.org/" rel="license">
+                       Unlicense
+                    </a>
+                </p>
                 <div id="cookie-banner" class="cookie-banner">
                     <p>This site uses cookies. Who ate all the donuts...?
                        <a href="#" id="cookie-learn-more">Learn More</a></p>
