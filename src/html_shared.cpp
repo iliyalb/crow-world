@@ -44,6 +44,14 @@ std::string generateFooter() {
     return R"(
             <footer>
                 <p>copyleft 🄯 iliya lesani</p>
+                <div id="cookie-banner" class="cookie-banner">
+                    <p>This site uses cookies. Who ate all the donuts...?
+                       <a href="#" id="cookie-learn-more">Learn More</a></p>
+                    <div class="cookie-buttons">
+                        <button id="accept-cookies">OK</button>
+                        <button id="reject-cookies">NO!</button>
+                    </div>
+                </div>
             </footer>
             <a href="#" class="back-to-top">⇡</a>
             <script src="index.js"></script>

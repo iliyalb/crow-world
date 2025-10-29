@@ -407,8 +407,6 @@ th {
     margin-bottom: 12px;
 }
 
-/* Gallery captions removed - images display without captions */
-
 /* Pagination Controls ------------------------------------ */
 
 .pagination-controls {
@@ -545,4 +543,54 @@ footer {
     padding: 16px;
     font-size: 14px;
     margin-top: 40px;
+}
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    display: none;
+    z-index: 1000;
+}
+
+/* Cookie Info Modal */
+.cookie-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--dark-green-bg);
+    color: var(--label);
+    padding: 20px;
+    border: 1px solid var(--border-bright);
+    z-index: 2000;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.cookie-modal h2 {
+    margin-top: 0;
+    color: var(--maize);
+}
+.cookie-modal p {
+    line-height: 1.6;
+}
+.cookie-modal button.close-btn {
+    background: var(--green-bg);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.cookie-buttons {
+    margin-top: 10px;
+}
+
+.cookie-buttons button {
+    margin-right: 10px;
+    padding: 5px 10px;
 }
