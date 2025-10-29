@@ -128,8 +128,6 @@ int main() {
     crow::SimpleApp app;
 
     const std::string dbPath = "storage.db";
-    initializeDatabase(dbPath);
-    seedDatabaseIfEmpty(dbPath);
 
     CROW_ROUTE(app, "/")([](const crow::request& req){
         int page = 1;
