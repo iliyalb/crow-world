@@ -9,3 +9,6 @@ std::string generatePageWrapper(const std::string& title, const std::string& act
 
 // Utility function to check if a string is a URL
 bool isUrl(const std::string& str);
+
+// Markdown rendering
+std::string renderMarkdown(const std::string& markdown);

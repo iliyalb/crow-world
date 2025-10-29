@@ -2,6 +2,7 @@
 #include "post.hpp"
 #include "gallery.hpp"
 #include "html_shared.hpp"
+#include <regex>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -59,7 +60,7 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
                         </div>
                     </div>
                     <h2 class="post-title">)" + post.title + R"(</h2>
-                    <div class="post-content">)" + post.content + R"(</div>)";
+                    <div class="post-content">)" + renderMarkdown(post.content) + R"(</div>)";
 
         // Add optional image if it exists
         if (!post.image.empty()) {
