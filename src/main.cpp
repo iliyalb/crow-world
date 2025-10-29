@@ -36,7 +36,8 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
 )";
 
     // Get posts for current page
-    std::vector<BlogPost> pagePosts = getPostsForPage(page, postsPerPage);
+    const std::string dbPath = "storage.db";
+    std::vector<BlogPost> pagePosts = getPostsForPage(dbPath, page, postsPerPage);
     for (const auto& post : pagePosts) {
         content += R"(<article class="blog-post">
                     <div class="post-meta">
@@ -71,7 +72,7 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
     }
 
     // Add pagination controls
-    int totalPages = getTotalPages(postsPerPage);
+    int totalPages = getTotalPages(dbPath, postsPerPage);
     content += R"(
             </div>
             <div class="pagination-controls">
@@ -126,6 +127,10 @@ std::string generateBlogHTML(int page = 1, int postsPerPage = 5) {
 int main() {
     crow::SimpleApp app;
 
+    const std::string dbPath = "storage.db";
+    initializeDatabase(dbPath);
+    seedDatabaseIfEmpty(dbPath);
+
     CROW_ROUTE(app, "/")([](const crow::request& req){
         int page = 1;
         int postsPerPage = 5;
@@ -163,13 +168,15 @@ int main() {
 
     CROW_ROUTE(app, "/api/posts")([]{
         crow::json::wvalue json_posts;
-        for (size_t i = 0; i < blogPosts.size(); ++i) {
-            json_posts[i]["title"] = blogPosts[i].title;
-            json_posts[i]["content"] = blogPosts[i].content;
-            json_posts[i]["date"] = blogPosts[i].date;
-            json_posts[i]["icon"] = blogPosts[i].icon;
-            json_posts[i]["image"] = blogPosts[i].image;
-            json_posts[i]["download"] = blogPosts[i].download;
+        const std::string dbPath = "storage.db";
+        auto posts = getAllPosts(dbPath);
+        for (size_t i = 0; i < posts.size(); ++i) {
+            json_posts[i]["title"] = posts[i].title;
+            json_posts[i]["content"] = posts[i].content;
+            json_posts[i]["date"] = posts[i].date;
+            json_posts[i]["icon"] = posts[i].icon;
+            json_posts[i]["image"] = posts[i].image;
+            json_posts[i]["download"] = posts[i].download;
         }
         return json_posts;
     });
