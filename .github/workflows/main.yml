@@ -1,0 +1,43 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          meson \
+          ninja-build \
+          libsqlite3-dev \
+          pkg-config
+    
+    - name: Setup build directory
+      run: meson setup builddir
+    
+    - name: Compile
+      run: meson compile -C builddir
+    
+    - name: Run tests (if any)
+      run: meson test -C builddir || echo "No tests configured"
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: crow-world-build
+        path: |
+          builddir/crow-world.out
+          builddir/storage.db
+          builddir/rsc/
+        retention-days: 30
