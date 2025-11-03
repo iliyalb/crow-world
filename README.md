@@ -1,6 +1,11 @@
 ## Description
 
-Website intended for personal non-commercial use, built in C++ with Crow microframework and Meson/Ninja build system.
+Personal non-commercial website built in C++ Crow microframework, SQLite, and Meson/Ninja build system.
+
+Features:
+- Custom Markdown parser
+- Download handler for URL and files
+- Styling based on original Steam client
 
 ## Build
 
