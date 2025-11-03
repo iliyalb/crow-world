@@ -21,6 +21,7 @@ jobs:
           meson \
           ninja-build \
           libsqlite3-dev \
+          libasio-dev \
           pkg-config
     
     - name: Setup build directory
