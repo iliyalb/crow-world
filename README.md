@@ -7,6 +7,10 @@ Features:
 - Download handler for URL and files
 - Styling based on original Steam client
 
+## Style
+
+Preview the theme <a href="https://iliyalb.github.io/crow-world/index.html" alt="demo">here</a>.
+
 ## Build
 
 First time setup:
