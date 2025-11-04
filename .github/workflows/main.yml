@@ -2,93 +2,48 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          build-essential \
-          meson \
-          ninja-build \
-          libsqlite3-dev \
-          libasio-dev \
-          pkg-config
-    
-    - name: Setup build directory
-      run: meson setup builddir
-    
-    - name: Compile
-      run: meson compile -C builddir
-    
-    - name: Install resources
-      run: meson install -C builddir --destdir=../deploy
-    
-    - name: Copy additional files
-      run: |
-        mkdir -p deploy/
-        cp -r builddir/rsc/* deploy/ 2>/dev/null || true
-        cp builddir/storage.db deploy/
-        cp builddir/crow-world.out deploy/
-    
-    - name: Run tests (if any)
-      run: meson test -C builddir || echo "No tests configured"
-    
-    - name: Start server and generate static content
-      run: |
-        cd deploy
-        # Start server in background
-        ./crow-world.out &
-        SERVER_PID=$!
-        
-        # Wait for server to start
-        sleep 5
-        
-        # Create static files directory
-        mkdir -p static
-        
-        # Generate static pages
-        curl -s http://localhost:18080/ > static/index.html || echo "Failed to generate index"
-        curl -s http://localhost:18080/gallery > static/gallery.html || echo "Failed to generate gallery"
-        
-        # Copy assets
-        cp -r rsc/* static/ 2>/dev/null || true
-        cp -r asset/* static/ 2>/dev/null || true
-        cp -r icon/* static/ 2>/dev/null || true
-        cp -r file/* static/ 2>/dev/null || true
-        
-        # Stop server
-        kill $SERVER_PID || true
-    
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./deploy/static
-    
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: crow-world-build
-        path: |
-          deploy/
-        retention-days: 30
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            meson \
+            ninja-build \
+            libsqlite3-dev \
+            libasio-dev \
+            pkg-config
+
+      - name: Setup build directory
+        run: meson setup builddir
+
+      - name: Compile
+        run: meson compile -C builddir
+
+      - name: Run tests (if any)
+        run: meson test -C builddir || echo "No tests configured"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: crow-world-build
+          path: |
+            builddir/crow-world.out
+            builddir/storage.db
+            builddir/rsc/
+          retention-days: 30
